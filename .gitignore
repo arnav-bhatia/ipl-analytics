@@ -22,3 +22,6 @@ data/temp_download/
 # OS junk
 .DS_Store
 Thumbs.db
+
+#Helper
+run.txt
