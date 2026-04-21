@@ -74,6 +74,7 @@ def build_csvs():
 
                         delivery_rows.append({
                             "match_id": match_id,
+                            "season": match_info.get("season"),
                             "innings": innings_num,
                             "batting_team": batting_team,
                             "over": over_num,
