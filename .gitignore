@@ -9,7 +9,7 @@ __pycache__/
 *.pyd
 
 # Jupyter
-.ipynb_checkpoints/
+*.ipynb
 
 # VS Code settings (optional)
 .vscode/

@@ -4,6 +4,22 @@ import pandas as pd
 
 from config import RAW_FOLDER, PROCESSED_FOLDER
 
+
+def clean_season(season_value):
+    season_str = str(season_value).strip()
+
+    special_cases = {
+        "2007/08": 2008,
+        "2009/10": 2010,
+        "2020/21": 2020
+    }
+
+    if season_str in special_cases:
+        return special_cases[season_str]
+
+    return int(season_str[:4])
+
+
 def build_csvs():
     match_rows = []
     delivery_rows = []
@@ -20,9 +36,11 @@ def build_csvs():
             match_id = filename.replace(".json", "")
             match_info = data["info"]
 
+            season = clean_season(match_info.get("season"))
+
             match_row = {
                 "match_id": match_id,
-                "season": match_info.get("season"),
+                "season": season,
                 "date": match_info.get("dates", [None])[0],
                 "team1": match_info.get("teams", [None, None])[0],
                 "team2": match_info.get("teams", [None, None])[1],
@@ -74,7 +92,7 @@ def build_csvs():
 
                         delivery_rows.append({
                             "match_id": match_id,
-                            "season": match_info.get("season"),
+                            "season": season,
                             "innings": innings_num,
                             "batting_team": batting_team,
                             "over": over_num,
