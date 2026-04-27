@@ -2,8 +2,11 @@ import json
 import os
 import pandas as pd
 
+from utils import team_mappings
 from config import RAW_FOLDER, PROCESSED_FOLDER
 
+def standardize_team_names(df, column):
+    return df[column].replace(team_mappings.mappings)
 
 def clean_season(season_value):
     season_str = str(season_value).strip()
@@ -115,7 +118,12 @@ def build_csvs():
                         })
 
     matches_df = pd.DataFrame(match_rows)
+
+    for col in ["team1", "team2", "toss_winner", "winner"]:
+        matches_df[col] = standardize_team_names(matches_df, col)
+
     deliveries_df = pd.DataFrame(delivery_rows)
+    deliveries_df["batting_team"] = standardize_team_names(deliveries_df, "batting_team")
 
     matches_path = os.path.join(PROCESSED_FOLDER, "matches.csv")
     deliveries_path = os.path.join(PROCESSED_FOLDER, "deliveries.csv")
