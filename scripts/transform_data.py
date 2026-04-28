@@ -60,6 +60,13 @@ def build_csvs():
 
                 batting_team = innings["team"]
 
+                teams = match_info.get("teams", [None, None])
+
+                if teams[0] == batting_team:
+                    bowling_team = teams[1]
+                else:
+                    bowling_team = teams[0]
+
                 for over_data in innings["overs"]:
 
                     over_num = over_data["over"] + 1
@@ -98,6 +105,7 @@ def build_csvs():
                             "season": season,
                             "innings": innings_num,
                             "batting_team": batting_team,
+                            "bowling_team": bowling_team,
                             "over": over_num,
                             "ball": ball_idx,
                             "batter": delivery.get("batter"),
@@ -124,6 +132,7 @@ def build_csvs():
 
     deliveries_df = pd.DataFrame(delivery_rows)
     deliveries_df["batting_team"] = standardize_team_names(deliveries_df, "batting_team")
+    deliveries_df["bowling_team"] = standardize_team_names(deliveries_df, "bowling_team")
 
     matches_path = os.path.join(PROCESSED_FOLDER, "matches.csv")
     deliveries_path = os.path.join(PROCESSED_FOLDER, "deliveries.csv")
