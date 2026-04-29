@@ -3,7 +3,6 @@ import numpy as np
 
 from config import PROCESSED_FOLDER
 
-
 def prepare_bowling_columns():
 
     NON_BOWLER_WICKETS = [

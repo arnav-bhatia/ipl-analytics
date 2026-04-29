@@ -45,7 +45,6 @@ def build_bowling_summary(df):
         "boundaries_conceded": "Boundaries Conceded"
     })
 
-
     bowling = bowling[
         [
             "Year", "Player", "Team", "Matches",

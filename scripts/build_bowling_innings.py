@@ -88,7 +88,6 @@ def build_bowling_innings(df):
         "result": "Result"
     })
 
-
     bowling = bowling[
         [
             "Year", "Player", "Team", "Match Number", "Opposition", "Date",
